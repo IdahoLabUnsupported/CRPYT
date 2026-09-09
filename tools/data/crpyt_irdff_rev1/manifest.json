@@ -1,0 +1,31 @@
+{
+  "version": 1,
+  "template_workbook": "../CRPYT_IRDFF_Rev1.xlsx",
+  "metadata_file": "metadata.json",
+  "formula_sheets": [
+    "formula/choose_irradiation_parameters.json",
+    "formula/results_elements.json",
+    "formula/results_isotopes.json",
+    "formula/isotopics.json",
+    "formula/tendl_isotopics.json",
+    "formula/pr_coeff_irr.json",
+    "formula/production.json",
+    "formula/pr_coeff_decay.json",
+    "formula/decay.json",
+    "formula/results_gamma.json",
+    "formula/branching_ratios.json",
+    "formula/gamma.json",
+    "formula/stable_isotope_properties.json",
+    "formula/isotope_properties.json",
+    "formula/gammas_per_decay.json",
+    "formula/betas_per_decay.json",
+    "formula/cover_xs.json",
+    "formula/mt12.json",
+    "formula/other_mt.json",
+    "formula/sheet1.json"
+  ],
+  "cached_sheets": [
+    "cached/pr_coeff_irr.json",
+    "cached/pr_coeff_decay.json"
+  ]
+}

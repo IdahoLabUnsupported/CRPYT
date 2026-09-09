@@ -1,0 +1,50 @@
+# Copyright 2026, Battelle Energy Alliance, LLC. All Rights Reserved.
+workflow:
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+    - if: $CI_COMMIT_BRANCH
+    - if: $CI_COMMIT_TAG
+
+stages:
+  - validate
+  - package
+
+default:
+  before_script:
+    - mkdir -p ci_artifacts
+    - printf "CRPYT job started at %s\n" "$(date -u +%Y-%m-%dT%H:%M:%SZ)" > ci_artifacts/validation-summary.txt
+    - python --version
+
+validate:
+  stage: validate
+  script:
+    - printf "CRPYT validation started at %s\n" "$(date -u +%Y-%m-%dT%H:%M:%SZ)" >> ci_artifacts/validation-summary.txt
+    - python ci/validate_crpyt.py
+  artifacts:
+    when: always
+    expire_in: 1 week
+    paths:
+      - ci_artifacts/
+
+package_release:
+  stage: package
+  needs:
+    - validate
+  timeout: 30m
+  parallel:
+    matrix:
+      - RELEASE_PART: ["1", "2", "3"]
+  variables:
+    ARTIFACT_COMPRESSION_LEVEL: fastest
+  script:
+    - python ci/package_release.py --chunk-index "$RELEASE_PART" --chunk-size-mib 64 --min-chunk-count 3
+  artifacts:
+    name: "crpyt-${CI_COMMIT_REF_SLUG}-part-${RELEASE_PART}"
+    expire_in: 30 days
+    paths:
+      - dist/crpyt-release.zip.part-*
+      - dist/crpyt-release.zip.sha256
+      - dist/crpyt-release-assemble.txt
+  rules:
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+    - if: $CI_COMMIT_TAG

@@ -1,0 +1,48 @@
+# Python caches
+__pycache__/
+*.py[cod]
+*$py.class
+!tools/__pycache__/
+!tools/__pycache__/CRPYT.cpython-312-INL430125.pyc
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# Packaging and build outputs
+build/
+dist/
+*.egg-info/
+*.spec
+!tools/CRPYT.spec
+
+# Generated tool outputs
+*.user_settings.json
+*.spe
+!ci/expected/*.spe
+*.chn
+*.n42
+*.spc
+*.csv
+!tools/spectrum_import_template.csv
+manifest*.json
+!tools/data/**/manifest.json
+crpyt_batch_*/
+output/
+outputs/
+ci_artifacts/
+
+# Excel workbooks stay outside this repository
+*.xlsx
+*.xlsm
+*.xls
+
+# Validation material from the legacy workspace
+validation/
+
+# Editor and OS files
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
